@@ -1,0 +1,35 @@
+Project name: E-Commerce Responsive MERN App
+cluster: cluster0
+username: avendanobalarezowilliams
+password: KbPmTvT57DGCPa0L
+Servers: AWS
+Region:WS Sao Paulo (sa-east-1)
+
+
+//Mongodb vscode connection string
+mongodb+srv://avendanobalarezowilliams:KbPmTvT57DGCPa0L@cluster0.jqnuh.mongodb.net/
+
+
+
+///////////////////////////////////////////STRIPE////////////////////////////////////////
+nombre de la empresa o projecto: mern_ecommerce (esto se ve en en dashboard de stripe)
+
+https://github.com/stripe/stripe-cli/releases //install windows stripe cli for testing webhooks,
+//es mejor porque no tengo que hacer un pago para simluar el webhook
+
+//primary_key 
+pk_test_51OsqGLP50fBLh89dSVxKGkSBACoc8JIDsYweu00ZFMV29bWyH7XZU8XOgKQUoc4aImCLfwLYYNDeeAXWJfl9Qng200IOB2vUXp
+
+//Secret_key
+sk_test_51OsqGLP50fBLh89dw3yh0CUIV2MUhi3WpmRholSEt8kmd68ffRNEWIFUTzX01ucIHewvNyll3EhmEMQVh4uqtg1Q00DA8gb38B
+
+//shipping rate that i create
+shr_1R23UZP50fBLh89dkKM83aZb 
+
+//Stripe CLI webhook secret for testing your endpoint locally
+whsec_0498110a8eff1459c689e37c41ac82088c455e85d6c05bea6ae6b70f450a355e
+
+//steps  //sin la cli de stripe abierta corriendo el webhook no funcionaen local
+//recordar para abrir el cli desbes ir a la carpeta donde se encuentra(primero se descomprime) y en la parte superior escribir cmd
+1- stripe login
+2- stripe listen --forward-to localhost:8080/api/webhooks

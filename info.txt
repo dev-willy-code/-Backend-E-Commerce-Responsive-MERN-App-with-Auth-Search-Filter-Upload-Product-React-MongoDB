@@ -1,0 +1,23 @@
+cd backend //acceder a la carpeta backend
+npm init //crea el package.json
+//en package.json agregar esto
+"start": "node index.js",
+"dev": "nodemon index.js"
+
+npm i nodemon express cors dotenv mongoose
+
+//comandos para inicar servidor
+node index o npm run dev
+
+
+npm i bcrypt // hashear contraseña
+npm install jsonwebtoken // jwt
+npm i cookie-parser
+
+//Para TOKEN_SECRET_KEY
+node
+require('crypto').randomBytes(64).toString('hex')
+'a3a330a7d927f3b17c5862b22b497a937da5f5e26d240511b5e40fe7d7ab8a1afc24dee0fecf918569b2ee6fa5a21fe365bf8c9c575b1c4c23d5c28d280700dc'
+
+//stripe sdk
+npm i --save stripe

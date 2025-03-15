@@ -1,0 +1,9 @@
+git status //para saber si esa carpeta tiene git o no tiene todavia
+git init //para iniciar git en ese directorio (en este caso backend)
+git add . //añade todo dentro de la carpeta donde git esta siendo usado(en este caso backend)
+git commit -m "first commit" 
+git branch -M main //usar la rama main(hay mas ramas , en total hay como 5 tipos de ramas)
+git remote add origin https://github.com/dev-willy-code/-Backend-E-Commerce-Responsive-MERN-App-with-Auth-Search-Filter-Upload-Product-React-MongoDB.git
+// esto si vas a hacer un cambio despues
+git add .example.txt
+git push
