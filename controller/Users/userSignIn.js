@@ -64,8 +64,8 @@ async function userSignInController(req, res) {
         // Opciones para la cookie
         const tokenOptions = {
             httpOnly: true,
-            secure: true,
-            // sameSite: 'none', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
+            secure: true,  //only when its https
+            sameSite: 'None', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
         };
 
         // 6. Enviar respuesta con la cookie

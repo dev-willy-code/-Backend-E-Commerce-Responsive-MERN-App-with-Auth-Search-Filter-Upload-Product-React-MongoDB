@@ -40,7 +40,7 @@ async function googleAuth(req, res) {
             const tokenOptions = {
                 httpOnly: true,
                 secure: true,
-                // sameSite: 'none', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
+                sameSite: 'None', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
             };
 
 
@@ -94,7 +94,7 @@ async function googleAuth(req, res) {
             const tokenOptions = {
                 httpOnly: true,
                 secure: true,
-                // sameSite: 'none', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
+                sameSite: 'None', // si tu frontend está en distinto dominio/subdominio y requieres enviar cookies cross-site
             };
 
 

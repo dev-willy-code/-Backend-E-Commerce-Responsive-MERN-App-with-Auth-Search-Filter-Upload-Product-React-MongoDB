@@ -9,3 +9,6 @@ git push -u origin main
 // esto si vas a hacer un cambio despues
 git add .example.txt
 git push
+
+
+//todo esto igual para publicar el frontend obvio cambiando los valores

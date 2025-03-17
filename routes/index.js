@@ -64,7 +64,7 @@ const User_Order = require('../controller/Order/User_Order');
 // LOG IN - SIGNUP - LOLGOUT
 router.post("/signup", userSignUpController);
 router.post("/signin", userSignInController);
-router.get("/userLogout", userLogoutController)
+router.post("/userLogout", userLogoutController) ////se le pone post porque si pongo get hay problemas con las cookies en deployment
 router.post("/google-auth", googleAuthController)
 
 
