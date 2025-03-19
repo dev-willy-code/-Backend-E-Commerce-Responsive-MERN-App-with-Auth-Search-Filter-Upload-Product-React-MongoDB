@@ -1,41 +1,6 @@
 const mongoose = require('mongoose')
 const RolePermissions = require("../models/rolePermissionModel");
 
-// Permisos por defecto según roles
-// const defaultPermisos = {
-//     SUPERADMIN: {
-//         puedeModificarPermisos: true,
-//         usuarios: {
-//             listar: ["GENERAL", "ADMIN", "SUPERADMIN"],
-//             actualizar: ["GENERAL", "ADMIN"],
-//             eliminar: ["GENERAL", "ADMIN"],
-//         },
-//         configuraciones: {
-//             acceso: true,
-//         },
-//     },
-//     ADMIN: {
-//         usuarios: {
-//             listar: ["GENERAL", "ADMIN"],
-//             actualizar: ["GENERAL"],
-//             eliminar: ["GENERAL"],
-//         },
-//         configuraciones: {
-//             acceso: false,
-//         },
-//     },
-//     GENERAL: {
-//         usuarios: {
-//             listar: [],
-//             actualizar: [],
-//             eliminar: [],
-//         },
-//         configuraciones: {
-//             acceso: false,
-//         },
-//     },
-// };
-
 const userSchema = mongoose.Schema({
     name: String,
     email: {
@@ -47,16 +12,8 @@ const userSchema = mongoose.Schema({
     profilePic: String,
     role: {
         type: String,
-        enum: ["SUPERADMIN", "ADMIN", "GENERAL"],
         required: true,
     },
-    // permisos: {
-    //     type: Object,
-    //     required: true,
-    //     default: function () {
-    //         return defaultPermisos[this.role] || {};
-    //     },
-    // },
     permisos: {
         type: Object,
         required: true,

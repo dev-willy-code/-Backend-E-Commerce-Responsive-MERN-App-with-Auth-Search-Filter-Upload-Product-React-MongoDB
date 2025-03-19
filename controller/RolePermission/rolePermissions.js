@@ -15,7 +15,7 @@ async function updateRolePermissions(req, res) {
             });
         }
 
-        const puedeMofifcarPermisos = currentUser.permisos?.puedeModificarPermisos;
+        const puedeMofifcarPermisos = currentUser.permisos?.configuracion?.puedeModificarPermisos;
         if (!puedeMofifcarPermisos) {
             return res.status(403).json({
                 message: "No puede modifcar permisos, NO AUTORIZADO",
@@ -62,7 +62,6 @@ async function updateRolePermissions(req, res) {
 
 
 async function getAllRolesPermissions(req, res) {
-
     const currentUser = await UserModel.findById(req.userId);
     if (!currentUser) {
         return res.status(404).json({
@@ -72,7 +71,7 @@ async function getAllRolesPermissions(req, res) {
         });
     }
 
-    const puedeMofifcarPermisos = currentUser.permisos?.puedeModificarPermisos;
+    const puedeMofifcarPermisos = currentUser.permisos?.configuracion?.puedeModificarPermisos;
     if (!puedeMofifcarPermisos) {
         return res.status(403).json({
             message: "No puede ver roles para modificar permisos, NO AUTORIZADO",
@@ -90,13 +89,15 @@ async function getAllRolesPermissions(req, res) {
         // Estructura de respuesta
         return res.status(200).json({
             success: true,
-            roles: allRoles,
+            error: false,
+            data: allRoles,
         });
 
     } catch (error) {
         console.error("Error al obtener los roles:", error);
         return res.status(500).json({
             success: false,
+            error: true,
             message: error.message,
         });
     }

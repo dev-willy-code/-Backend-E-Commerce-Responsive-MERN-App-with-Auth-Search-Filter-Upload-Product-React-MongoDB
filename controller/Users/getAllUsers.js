@@ -16,7 +16,12 @@ async function getAllUsers(req, res) {
         }
 
         // 2. Verifica los roles que puede "listar" este usuario
-        const rolesPermitidos = currentUser.permisos?.usuarios?.listar || [];
+        const rolesPermitidosObj = currentUser.permisos?.usuarios?.listar || {};
+
+        // Convierte los roles con `true` en un array
+        const rolesPermitidos = Object.keys(rolesPermitidosObj).filter(
+            (rol) => rolesPermitidosObj[rol] === true
+        );
 
         // Si no hay roles permitidos para listar, devuelves 403
         if (rolesPermitidos.length === 0) {
@@ -26,12 +31,14 @@ async function getAllUsers(req, res) {
                 error: true
             });
         }
+        console.log("rolesPermitidos: ", rolesPermitidos);
 
         // 3. Filtra los usuarios en la base de datos
         //    Devolverá solo aquellos cuyo `role` esté incluido en rolesPermitidos
         const allUsers = await userModel.find({
             role: { $in: rolesPermitidos },
         });
+        console.log("allusers:", allUsers);
 
         return res.json({
             message: "Usuarios listados correctamente",

@@ -15,8 +15,13 @@ async function deleteUser(req, res) {
             });
         }
 
-        //3. Verificar si este usuario tiene permiso eliminar usuarios
-        const rolesPermitidos = currentUser.permisos?.usuarios?.eliminar || [];
+        // 3. Verificar si este usuario tiene permiso para eliminar usuarios
+        const rolesPermitidosObj = currentUser.permisos?.usuarios?.eliminar || {};
+
+        const rolesPermitidos = Object.keys(rolesPermitidosObj).filter(
+            (rol) => rolesPermitidosObj[rol] === true
+        );
+
         if (rolesPermitidos.length === 0) {
             return res.status(403).json({
                 message: "No tienes permisos para eliminar usuarios",
@@ -25,7 +30,7 @@ async function deleteUser(req, res) {
             });
         }
 
-        //4. Buscar al usuario que se desea eliminar
+        // 4. Buscar al usuario que se desea eliminar
         const userToDelete = await userModel.findById(userId);
         if (!userToDelete) {
             return res.status(404).json({
@@ -35,7 +40,7 @@ async function deleteUser(req, res) {
             });
         }
 
-        //5.Validar que el rol del usuario a eliminar este en la lista de roles que el currentUser puede eliminar
+        // 5. Validar que el rol del usuario a eliminar esté en la lista de roles permitidos
         if (!rolesPermitidos.includes(userToDelete.role)) {
             return res.status(403).json({
                 message: `No puedes eliminar usuarios con el rol ${userToDelete.role}.`,
@@ -43,6 +48,7 @@ async function deleteUser(req, res) {
                 success: false,
             });
         }
+
 
         //6. Eliminar al usuario
         await userModel.findByIdAndDelete(userId);

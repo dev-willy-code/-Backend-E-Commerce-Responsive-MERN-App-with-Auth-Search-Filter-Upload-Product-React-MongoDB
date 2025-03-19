@@ -18,15 +18,10 @@ async function updateUser(req, res) {
         }
 
         // 3. Verificar que este usuario tenga permiso para "actualizar" usuarios
-        //    Obtenemos el array con los roles que SÍ puede actualizar.
-        const rolesPermitidos = currentUser.permisos?.usuarios?.actualizar || [];
-        if (rolesPermitidos.length === 0) {
-            return res.status(403).json({
-                message: "No tienes permisos para actualizar usuarios.",
-                error: true,
-                success: false,
-            });
-        }
+        //    Obtenemos los roles que tiene permiso de actualizar (los que tengan `true` en el objeto)
+        const rolesPermitidos = Object.keys(currentUser.permisos?.usuarios?.actualizar || {}).filter(
+            role => currentUser.permisos.usuarios.actualizar[role]
+        );
 
         // 4. Buscar al usuario que se desea actualizar
         const userToUpdate = await userModel.findById(userId);
@@ -47,7 +42,7 @@ async function updateUser(req, res) {
                 success: false,
             });
         }
-
+        console.log("role: ", role);
         // 6. Aplicar los cambios
         if (email) userToUpdate.email = email;
         if (name) userToUpdate.name = name;

@@ -29,7 +29,12 @@ const orderSchema = new mongoose.Schema({
     totalAmount: {
         type: Number,
         default: 0
-    }
+    },
+    country: {
+        type: String,
+        default: ""
+    },
+    card_details: {}
 }, {
     timestamps: true
 })

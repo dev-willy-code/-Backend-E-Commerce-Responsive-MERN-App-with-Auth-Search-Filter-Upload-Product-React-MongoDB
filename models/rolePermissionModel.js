@@ -5,7 +5,6 @@ const rolePermissionsSchema = new mongoose.Schema({
     // Rol específico
     role: {
         type: String,
-        enum: ["SUPERADMIN", "ADMIN", "GENERAL"],
         unique: true, // un documento por rol
         required: true,
     },
