@@ -17,10 +17,12 @@ async function updateUser(req, res) {
             });
         }
 
+
         // 3. Verificar que este usuario tenga permiso para "actualizar" usuarios
         //    Obtenemos los roles que tiene permiso de actualizar (los que tengan `true` en el objeto)
-        const rolesPermitidos = Object.keys(currentUser.permisos?.usuarios?.actualizar || {}).filter(
-            role => currentUser.permisos.usuarios.actualizar[role]
+        const rolesPermitidosObj = currentUser.permisos?.usuarios?.actualizar || {};
+        const rolesPermitidos = Object.keys(rolesPermitidosObj).filter(
+            (role) => rolesPermitidosObj[role] === true
         );
 
         // 4. Buscar al usuario que se desea actualizar

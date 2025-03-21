@@ -18,7 +18,15 @@ async function getAllProducts(req, res) {
             });
         }
 
-        //no hay Validacion de permisos de lectura de productos
+        // 2. Comprobar permiso para eliminar productos
+        const canListProducts = currentUser?.permisos?.productos?.listar || false;
+        if (!canListProducts) {
+            return res.status(403).json({
+                message: "No tienes permisos para listar todos los productos.",
+                success: false,
+                error: true,
+            });
+        }
 
         //2. Obtener todos los productos
         const allproducts = await productModel

@@ -1,7 +1,7 @@
 const orderModel = require("../../models/orderProductModel");
 const userModel = require("../../models/userModel");
 
-const allOrderController = async (req, res) => {
+const allOrder = async (req, res) => {
     try {
         // 1. Obtener el ID del usuario autenticado desde el middleware
         const userId = req.userId;
@@ -53,4 +53,4 @@ const allOrderController = async (req, res) => {
     }
 };
 
-module.exports = allOrderController;
+module.exports = allOrder;

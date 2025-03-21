@@ -22,6 +22,8 @@ const deleteUserController = require('../controller/Users/deleteUser');
 
 //Roles Permisos
 const { getAllRolesPermissions, updateRolePermissions } = require('../controller/RolePermission/rolePermissions');
+const { createRole, deleteRole } = require('../controller/RolePermission/create_Delete_RolePermission');
+
 
 //PROFILE
 const updateProfileController = require('../controller/Users/updateProfile');
@@ -56,9 +58,14 @@ const updateReview = require('../controller/Reviews/updateReview');
 const getProductReviewAverage = require('../controller/Reviews/getProductReviewAverage');
 const deleteReview = require('../controller/Reviews/deleteReview');
 const getProductReviews = require('../controller/Reviews/getProductReviews');
+
+
+//Orders
 const payment = require('../controller/Order/payment');
 const webhooks = require('../controller/Order/webhook');
 const User_Order = require('../controller/Order/User_Order');
+const allOrder = require('../controller/Order/allOrder');
+
 
 
 // LOG IN - SIGNUP - LOLGOUT
@@ -78,7 +85,10 @@ router.delete("/delete-user", authToken, deleteUserController); //solo superadmi
 
 //Role-Permission
 router.put("/role-permissions", authToken, updateRolePermissions); //actualizar
-router.get("/role-permissions", authToken, getAllRolesPermissions); //obtener
+router.get("/role-permissions", authToken, getAllRolesPermissions); //obtener los roles y permisos
+router.post("/create-role", authToken, createRole); //obtener los roles y permisos
+router.delete("/delete-role/:role", authToken, deleteRole); //elimina un rol , aca puede pasarse el rol por body o params
+
 
 //profile
 router.put("/update-profile", authToken, updateProfileController); //actualizar
@@ -119,6 +129,7 @@ router.get("/getProductReviews/:productId", getProductReviews); // obitne todos 
 router.post("/checkout", authToken, payment);
 router.post("/webhooks", webhooks); //stripe->  /api/webhook   
 router.get("/order-list", authToken, User_Order); // trae todas las ordenes del usuario logueado
+router.get("/all-order", authToken, allOrder); // trae todas las ordenes
 
 
 

@@ -1,7 +1,10 @@
+const addToCartModel = require("../../models/cartProductModel");
 const productModel = require("../../models/productModel");
 const userModel = require("../../models/userModel");
 
 async function deleteProduct(req, res) {
+    const session = await mongoose.startSession(); // Inicia una sesión de transacción
+    session.startTransaction();
     try {
         // 1. Leer datos de la petición
         //    Asumimos que el ID viene en req.body, podrías usar req.params si es '/products/:id'
@@ -56,9 +59,16 @@ async function deleteProduct(req, res) {
             });
         }
 
+
+        // Eliminar cualquier carrito asociado al usuario
+        await addToCartModel.deleteMany({ productId: productId }).session(session);;
+
         // 7. Eliminar
         //    - O puedes usar productModel.findByIdAndDelete(productId)
-        await productToDelete.deleteOne();
+        await productToDelete.deleteOne().session(session);
+
+        await session.commitTransaction(); // Confirma la transacción
+        session.endSession();
 
         // 8. Respuesta exitosa
         return res.status(200).json({
@@ -67,6 +77,9 @@ async function deleteProduct(req, res) {
             error: false,
         });
     } catch (error) {
+        await session.abortTransaction(); // Revierte los cambios si algo falla
+        session.endSession();
+
         console.error("Error en deleteProduct: ", error);
         return res.status(500).json({
             message: error.message || "Error al eliminar producto",
